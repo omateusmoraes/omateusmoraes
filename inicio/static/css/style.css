@@ -1285,21 +1285,7 @@ p.form-messege{
      position: relative;
      text-align: center;
 }
- .box:before{
-     width: 267px;
-     height: 276px;
-     position: absolute;
-     left: 0;
-     right: 0;
-     top: 0;
-     bottom: 0;
-     margin: auto;
-     content: '';
-     text-align: center;
-     background: url(../images/corporate/s5.png) no-repeat center center / cover;
-     transition: all ease 400ms;
-     animation-fill-mode: both;
-     animation: box_blinker_before 3.5s linear infinite;
+
 }
  @keyframes box_blinker_before {
      0% {

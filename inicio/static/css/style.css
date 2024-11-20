@@ -1139,9 +1139,9 @@ p.form-messege{
      background: #fff;
      transition: 1s;
 }
- .ca_ferture_7:hover .sub-item{
+ /*.ca_ferture_7:hover .sub-item{
      transition: 1s;
-     background: url(../images/corporate/fea-car.png) no-repeat center center / cover;
+     background: url(../images/corporate/fea-car.png) no-repeat center center / cover;*/
 }
  .witr_cfeature8 .sub-item span {
      position: inherit;

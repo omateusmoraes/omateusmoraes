@@ -23,9 +23,7 @@ a.meanmenu-reveal{display:none}.mean-container .mean-bar{background:#0f99de;floa
 
 @font-face {
     font-family: 'Themify';
-    src: url('/static/fonts/themify.eot');
-    src: url('/static/fonts/themify.eot?#iefix') format('embedded-opentype'),
-         url('/static/fonts/themify.woff') format('woff'),
+    src: url('/static/fonts/themify.woff') format('woff'),
          url('/static/fonts/themify.ttf') format('truetype');
 }
 

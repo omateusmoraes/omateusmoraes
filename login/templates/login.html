@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Login</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 300px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .container input[type="text"],
+        .container input[type="password"],
+        .container input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        .container button[type="submit"],
+        .container .btn-secondary {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            color: #fff;
+        }
+        .container button[type="submit"] {
+            background-color: #4CAF50;
+        }
+        .container button[type="submit"]:hover {
+            background-color: #3e8e41;
+        }
+        .container .btn-secondary {
+            background-color: #007bff;
+        }
+        .container .btn-secondary:hover {
+            background-color: #0056b3;
+        }
+        .logo {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        .container a {
+            color: #007bff;
+            display: block;
+            margin-top: 15px;
+            text-decoration: none;
+        }
+        .container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{% static 'imagem/logologin.jpeg' %}" alt="Logo da Empresa" class="logo">
+        <h2>Login</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Entrar</button>
+        </form>
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <!-- Botão para recuperar a senha -->
+        <a href="/">Esqueceu sua senha?</a>
+        <!-- Botão para voltar para o site -->
+        <a href="/" class="btn-secondary">Voltar para o site</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contas a Pagar</title>
+    <style>
+        /* Estilos para o template azul */
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #337ab7;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f0f0f0;
+        }
+        .button-container {
+            text-align: right;
+            margin-top: 20px;
+        }
+        .button-container .gradient-button {
+            background-image: linear-gradient(to bottom, #337ab7, #23527c);
+            background-color: #337ab7;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .button-container .gradient-button:hover {
+            background-image: linear-gradient(to bottom, #23527c, #337ab7);
+        }
+        .form-container {
+            display: none;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .form-container h2 {
+            margin-top: 0;
+            color: #337ab7;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .form-container input, .form-container select {
+            width: calc(100% - 22px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .form-container button {
+            background-image: linear-gradient(to bottom, #337ab7, #23527c);
+            background-color: #337ab7;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .form-container button:hover {
+            background-image: linear-gradient(to bottom, #23527c, #337ab7);
+        }
+        .total-container {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #337ab7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Contas a Pagar</h1>
+        </div>
+        <div class="table-container">
+            <table class="table" id="contasapagarTable">
+                <thead>
+                    <tr>
+                        <th>Fornecedor</th>
+                        <th>Descrição</th>
+                        <th>Vencimento</th>
+                        <th>Valor</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="contasapagarList">
+                    {% for contasapagar in contasapagar %}
+                    <tr data-id="{{ contasapagar.id }}">
+                        <td>{{ contasapagar.fornecedor }}</td>
+                        <td>{{ contasapagar.descricao }}</td>
+                        <td>{{ contasapagar.vencimento }}</td>
+                        <td>{{ contasapagar.valor }}</td>
+                        <td>
+                            <button onclick="editContasapagar(this)">Editar</button>
+                           <button>  <a href="{% url 'delete_contasapagar' contasapagar.id %}" class="btn btn-danger">Excluir</a></button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Exibição do total -->
+        <div class="total-container" id="totalContainer">
+            Total: R$ 0,00
+        </div>
+        <div class="button-container">
+            <button class="gradient-button" onclick="toggleForm()">Adicionar Conta</button>
+            <button class="gradient-button" onclick="window.location.href='{% url 'menu' %}'">Voltar ao Menu</button>
+        </div>
+        <div class="form-container" id="formContainer">
+            <h2>Cadastro de Nova Conta</h2>
+            <form id="newContasapagarForm" method="POST" action="{% url 'add_contasapagar' %}">
+                {% csrf_token %}
+                <input type="hidden" id="contasapagarId" name="id">
+                <label for="fornecedor">Fornecedor:</label>
+                <input type="text" id="fornecedor" name="fornecedor" required>
+                <label for="descricao">Descrição:</label>
+                <input type="text" id="descricao" name="descricao" required>
+                <label for="vencimento">Vencimento:</label>
+                <input type="date" id="vencimento" name="vencimento" required>
+                <label for="valor">Valor:</label>
+                <input type="text" id="valor" name="valor" required>
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Função para alternar o formulário
+        function toggleForm() {
+            const formContainer = document.getElementById('formContainer');
+            formContainer.style.display = formContainer.style.display === 'none' || formContainer.style.display === '' ? 'block' : 'none';
+        }
+
+        // Função para editar conta
+        function editContasapagar(button) {
+            const row = button.parentElement.parentElement;
+            const contasapagarId = row.getAttribute('data-id');
+            document.getElementById('contasapagarId').value = contasapagarId;
+            document.getElementById('fornecedor').value = row.cells[0].innerText;
+            document.getElementById('descricao').value = row.cells[1].innerText;
+            document.getElementById('vencimento').value = row.cells[2].innerText;
+            document.getElementById('valor').value = row.cells[3].innerText;
+            toggleForm();
+        }
+
+        // Função para calcular o total das contas
+        function calculateTotal() {
+            const rows = document.querySelectorAll('#contasapagarTable tbody tr');
+            let total = 0;
+
+            rows.forEach(row => {
+                const valorCell = row.cells[3];
+                const valor = parseFloat(valorCell.innerText.replace(',', '.').replace('R$', '').trim());
+                if (!isNaN(valor)) {
+                    total += valor;
+                }
+            });
+
+            document.getElementById('totalContainer').innerText = `Total: R$ ${total.toFixed(2).replace('.', ',')}`;
+        }
+
+        // Atualiza o total ao carregar a página
+        window.onload = calculateTotal;
+    </script>
+</body>
+</html>

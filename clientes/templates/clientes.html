@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Clientes</title>
+  <style>
+    /* Estilos para o template azul */
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      background-color: #003366;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .table-container {
+      margin-top: 20px;
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .table th, .table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    .table th {
+      background-color: #f0f0f0;
+    }
+    .search-container {
+      margin-bottom: 20px;
+    }
+    .search-container input {
+      width: calc(100% - 22px);
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+    .button-container {
+      text-align: right;
+      margin-top: 20px;
+    }
+    .gradient-button {
+      background-image: linear-gradient(to bottom, #337ab7, #23527c);
+      background-color: #337ab7;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .gradient-button:hover {
+      background-image: linear-gradient(to bottom, #23527c, #337ab7);
+    }
+    .pagination {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .pagination button {
+      padding: 5px 10px;
+      margin: 0 5px;
+      background-color: #337ab7;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .pagination button:hover {
+      background-color: #23527c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Cadastro de Clientes</h1>
+    </div>
+
+    <!-- Filtro de Pesquisa -->
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Pesquisar clientes..." onkeyup="filterTable()">
+    </div>
+
+    <!-- Tabela de Clientes -->
+    <div class="table-container">
+      <table class="table" id="clientTable">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Endereço</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="clientList">
+          {% for client in clients %}
+          <tr data-id="{{ client.id }}">
+            <td>{{ client.nome }}</td>
+            <td>{{ client.endereco }}</td>
+            <td>{{ client.telefone }}</td>
+            <td>{{ client.email }}</td>
+            <td>
+              <button onclick="editClient(this)">Editar</button>
+              <button>
+                <a href="{% url 'delete_client' client.id %}" class="btn btn-danger">Excluir</a>
+              </button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Botões -->
+    <div class="button-container">
+      <button class="gradient-button" onclick="toggleForm()">Cadastrar Novo Cliente</button>
+      <button class="gradient-button" onclick="window.location.href='{% url 'menu' %}'">Voltar ao Menu</button>
+    </div>
+
+    <!-- Paginação -->
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <script>
+    // Paginação
+    const rowsPerPage = 5; // Define o número de linhas por página
+    let currentPage = 1;
+
+    function paginateTable() {
+      const table = document.getElementById('clientTable');
+      const rows = table.querySelectorAll('tbody tr');
+      const pagination = document.getElementById('pagination');
+
+      const totalPages = Math.ceil(rows.length / rowsPerPage);
+      pagination.innerHTML = '';
+
+      for (let i = 1; i <= totalPages; i++) {
+        const button = document.createElement('button');
+        button.textContent = i;
+        button.onclick = () => changePage(i);
+        pagination.appendChild(button);
+      }
+
+      changePage(currentPage);
+    }
+
+    function changePage(page) {
+      const table = document.getElementById('clientTable');
+      const rows = table.querySelectorAll('tbody tr');
+
+      currentPage = page;
+      rows.forEach((row, index) => {
+        row.style.display = index >= (page - 1) * rowsPerPage && index < page * rowsPerPage ? '' : 'none';
+      });
+    }
+
+    // Filtro de Pesquisa
+    function filterTable() {
+      const searchValue = document.getElementById('searchInput').value.toLowerCase();
+      const rows = document.querySelectorAll('#clientTable tbody tr');
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(searchValue) ? '' : 'none';
+      });
+    }
+
+    // Inicializa a paginação ao carregar a página
+    window.onload = paginateTable;
+  </script>
+</body>
+</html>

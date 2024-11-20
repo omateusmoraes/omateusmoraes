@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área de Gestão da Empresa</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #003366;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            font-size: 28px;
+            font-weight: 500;
+            margin: 0;
+        }
+        .back-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #006699;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #004466;
+        }
+        .navbar {
+            background-color: #003366;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            background-color: #006699;
+            color: #fff;
+            padding: 10px 15px;
+            border: block;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+        .dropbtn:hover {
+            background-color: #005580;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            border-radius: 5px;
+        }
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+            border-bottom: 1px solid #ddd;
+        }
+        .dropdown-content a:last-child {
+            border-bottom: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            flex: 1 1 calc(33.333% - 20px);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .card h2 {
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .card p {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+        .card button {
+            background-color: #0066cc;
+            color: #fff;
+            border: block;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+        .card button:hover {
+            background-color: #0055a5;
+        }
+        @media (max-width: 768px) {
+            .card {
+                flex: 1 1 calc(50% - 20px);
+            }
+        }
+        @media (max-width: 480px) {
+            .card {
+                flex: 1 1 100%;
+            }
+        }
+        footer {
+            background-color: #003366;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="navbar">
+            <div class="dropdown">
+                <button class="dropbtn" id="menuButton">Menu</button>
+                <div class="dropdown-content" id="menuContent">
+                    <a href="http://127.0.0.1:8000/clientes">Cadastro de Clientes</a>
+                    <a href="http://127.0.0.1:8000/agendamentos">Agendamento de Serviços</a>
+                    <a href="http://127.0.0.1:8000/faturamento">Faturamento da Empresa</a>
+                    <a href="http://127.0.0.1:8000/estoque">Gestão de Estoque</a>
+                    <a href="http://127.0.0.1:8000/contasapagar">Contas a Pagar</a>
+                    <a href="http://127.0.0.1:8000/contasareceber">Contas a Receber</a>
+                    <a href="/">Gestão de Usuários</a>
+                    <a href="/">Histórico de Serviços</a>
+                    <a href="/">Módulo de Treinamento</a>
+                    <a href="/">Sistema de Feedback</a>
+                    <a href="/">Chat em Tempo Real</a>
+                    <a href="/">Módulo de Orçamentos</a>
+                    <a href="/">Notificações e Alertas</a>
+                </div>
+            </div>
+        </div>
+        <h1><i class="fas fa-cog"></i>Área de Gestão da Empresa</h1>
+        <button class="back-button" onclick="window.location.href='http://127.0.0.1:8000/'">Voltar ao Site</button>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Cadastro de Clientes</h2>
+            <p>Gerencie os dados dos seus clientes de forma eficiente.</p>
+            <button onclick="location.href='http://127.0.0.1:8000/clientes'"><i class="fas fa-users"></i> Ver Mais</button>
+        </div>
+        <div class="card">
+            <h2>Agendamento de Serviços</h2>
+            <p>Organize e agende serviços de maneira prática.</p>
+            <button onclick="location.href='http://127.0.0.1:8000/agendamentos'"><i class="fas fa-calendar-alt"></i> Ver Mais</button>
+        </div>
+        <div class="card">
+            <h2>Faturamento da Empresa</h2>
+            <p>Controle o faturamento da sua empresa.</p>
+            <button onclick="location.href='http://127.0.0.1:8000/faturamento'"><i class="fas fa-money-bill-wave"></i> Ver Mais</button>
+        </div>
+        <div class="card">
+            <h2>Gestão de Estoque</h2>
+            <p>Controle e monitore o estoque da sua empresa.</p>
+            <button onclick="location.href='http://127.0.0.1:8000/estoque'"><i class="fas fa-box"></i> Ver Mais</button>
+        </div>
+        <div class="card">
+            <h2>Contas a Pagar</h2>
+            <p>Gerencie pagamentos de contas.</p>
+            <button onclick="location.href='http://127.0.0.1:8000/contasapagar'"><i class="fas fa-file-invoice-dollar"></i> Ver Mais</button>
+        </div>
+
+        <div class="card">
+            <h2>Contas a Receber</h2>
+            <p>Controle as contas a receber da sua empresa.</p>
+            <button onclick="location.href='http://127.0.0.1:8000/contasareceber'"><i class="fas fa-cash-register"></i> Ver Mais</button>
+        </div>
+         <div class="card">
+            <h2>Módulo de Orçamentos</h2>
+            <p>Crie e gerencie orçamentos rapidamente.</p>
+            <button onclick="location.href='http://127.0.0.1:8000/orcamentos'"><i class="fas fa-money-bill-wave"></i> Ver Mais</button>
+        </div>
+        <div class="card">
+            <h2>Sistema de Feedback</h2>
+            <p>Receba e gerencie feedbacks dos clientes.</p>
+            <button onclick="location.href='/'"><i class="fas fa-file-invoice-dollar"></i> Ver Mais</button>
+        </div>
+
+        <div class="card">
+            <h2>Módulo de Treinamento</h2>
+            <p>Disponibilize treinamentos e capacitações.</p>
+            <button onclick="location.href='/'"><i class="fas fa-cash-register"></i> Ver Mais</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Sistema de Gestão Empresarial. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById('menuButton').addEventListener('click', function() {
+            var menu = document.getElementById('menuContent');
+            if (menu.style.display === 'block') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'block';
+            }
+        });
+
+        // Close the dropdown if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName('dropdown-content');
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.style.display === 'block') {
+                        openDropdown.style.display = 'none';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+

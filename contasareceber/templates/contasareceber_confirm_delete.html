@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excluir Conta a Receber</title>
+  <style>
+    /* Estilos para o template azul */
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .header {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    .header h1 {
+      margin: 0;
+    }
+    .button-container {
+      margin-top: 20px;
+    }
+    .button-container button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .button-container button:hover {
+      background-color: #0056b3;
+    }
+    .button-container .cancel-button {
+      background-color: #6c757d;
+    }
+    .button-container .cancel-button:hover {
+      background-color: #5a6268;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Excluir Conta a Receber</h1>
+    </div>
+    <p>Tem certeza que deseja excluir a conta a receber do cliente "{{ conta.cliente }}" no valor de R$ {{ conta.valor }} com vencimento em "{{ conta.data_vencimento }}"?</p>
+    <div class="button-container">
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmar Exclusão</button>
+      </form>
+      <button class="cancel-button" onclick="window.history.back()">Cancelar</button>
+    </div>
+  </div>
+</body>
+</html>

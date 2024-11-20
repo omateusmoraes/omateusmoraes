@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Exclusão</title>
+    <style>
+        /* Estilos para o template azul */
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #337ab7;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .form-container {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            text-align: center; /* Centraliza o conteúdo */
+        }
+        .form-container p {
+            font-size: 16px;
+            margin-bottom: 20px; /* Espaço entre o texto e os botões */
+        }
+        .form-container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            margin: 0 10px; /* Espaço entre os botões */
+        }
+        .form-container .confirm-button {
+            background-color: #28a745; /* Botão verde */
+        }
+        .form-container .confirm-button:hover {
+            background-color: #218838;
+        }
+        .form-container .cancel-button {
+            background-color: #dc3545; /* Botão vermelho */
+        }
+        .form-container .cancel-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Excluir Item</h1>
+        </div>
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                <h1>Tem certeza que deseja excluir o Item ?</h1>
+                <button type="submit" class="confirm-button">Confirmar Exclusão</button>
+                <button type="button" class="cancel-button" onclick="window.history.back()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

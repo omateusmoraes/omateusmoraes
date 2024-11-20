@@ -1295,23 +1295,7 @@ p.form-messege{
          transform: rotate(360deg);
     }
 }
- .box:after{
-     width: 163px;
-     height: 182px;
-     position: absolute;
-     left: 0;
-     right: 0;
-     top: 0;
-     bottom: 0;
-     margin: auto;
-     visibility: hidden;
-     opacity: 0;
-     content: '';
-     text-align: center;
-     background: url(../images/corporate/s6.png) no-repeat center center / cover;
-     transition: all ease 400ms;
-     animation-fill-mode: both;
-     animation: box_blinker_after 3.5s linear infinite;
+
 }
  @keyframes box_blinker_after{
      0% {
